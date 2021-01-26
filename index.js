@@ -22,8 +22,8 @@ mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 
 mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
-  console.log("We're connected, baby.");
-  app.listen(3000, () => console.log("We did it, baby."));
+  console.log("Connected to DB.");
+  app.listen(3000, () => console.log("Web server running."));
 });
 
 
