@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./models/User");
-const ListTask = require("./models/ListTask");
+const Events = require("./models/events");
 const app = express();
 
 const dotenv = require("dotenv");
@@ -53,8 +53,8 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/list', isLoggedIn, (req, res) => {
-  ListTask.find({}, (err, tasks) => {
-    res.render("list", { listTask: tasks });
+  Events.find({}, (err, events) => {
+    res.render("list", { events: events });
   });
 });
 
@@ -66,13 +66,13 @@ app.post('/login', passport.authenticate('local', {
 });
 
 app.post('/list', async (req, res) => {
-  const listTask = new ListTask({
+  const events = new Events({
     name: req.body.name,
     date: req.body.date,
     location: req.body.location
   });
   try {
-    await listTask.save();
+    await events.save();
     res.redirect("/list");
   } catch (err) {
     res.redirect("/list");
@@ -84,13 +84,13 @@ app
   .route("/edit/:id")
   .get((req, res) => {
     const id = req.params.id;
-    ListTask.find({}, (err, tasks) => {
-      res.render("listEdit", { listTask: tasks, idTask: id });
+    Events.find({}, (err, events) => {
+      res.render("listEdit", { events: events, eventId: id });
     });
   })
   .post((req, res) => {
     const id = req.params.id;
-    ListTask.findByIdAndUpdate(id, { name: req.body.name, date: req.body.date, location: req.body.location }, err => {
+    Events.findByIdAndUpdate(id, { name: req.body.name, date: req.body.date, location: req.body.location }, err => {
       if (err) return res.send(500, err);
       res.redirect("/list");
     });
@@ -100,7 +100,7 @@ app
   //DELETE
   app.route("/remove/:id").get((req, res) => {
     const id = req.params.id;
-    ListTask.findByIdAndRemove(id, err => {
+    Events.findByIdAndRemove(id, err => {
       if (err) return res.send(500, err);
       res.redirect("/list");
     });

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const listTaskSchema = new mongoose.Schema({
+const eventsSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -19,4 +19,4 @@ const listTaskSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('ListTask', listTaskSchema);
+module.exports = mongoose.model('Events', eventsSchema);
