@@ -4,7 +4,7 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
-const User = require("./models/User");
+const User = require("./models/user");
 const Events = require("./models/events");
 const app = express();
 
