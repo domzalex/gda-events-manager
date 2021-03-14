@@ -7,6 +7,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./models/user");
 const Events = require("./models/events");
 const app = express();
+const PORT = process.env.PORT || 80;
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -23,7 +24,7 @@ mongoose.set("useUnifiedTopology", true);
 
 mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
   console.log("Connected to DB.");
-  app.listen(3000, () => console.log("Web server running."));
+  app.listen(PORT, () => console.log("Web server running."));
 });
 
 
